@@ -217,6 +217,42 @@
             submitBtn.disabled = true;
             prevBtn.disabled = true;
             nextBtn.disabled = true;
+            // Add Review button
+            const reviewBtn = document.createElement('button');
+            reviewBtn.textContent = 'Review';
+            reviewBtn.style.width = '100%';
+            reviewBtn.style.padding = '12px';
+            reviewBtn.style.fontSize = '18px';
+            reviewBtn.style.background = '#ffa000';
+            reviewBtn.style.color = '#fff';
+            reviewBtn.style.border = 'none';
+            reviewBtn.style.borderRadius = '4px';
+            reviewBtn.style.cursor = 'pointer';
+            reviewBtn.style.marginTop = '16px';
+            scoreDiv.appendChild(reviewBtn);
+            reviewBtn.onclick = function() {
+                // Show review of each question
+                let reviewHtml = '<div style="margin-top:24px;text-align:left">';
+                for (let i = 0; i < questions.length; i++) {
+                    let correct = answers[i] === questions[i].answer;
+                    reviewHtml += `<div style='margin-bottom:12px;'>`
+                        + `<strong>Question ${i+1}:</strong> `
+                        + `<span style='color:${correct ? '#43a047' : '#d32f2f'};font-weight:bold;'>${correct ? 'Correct' : 'Incorrect'}</span>`
+                        + `</div>`;
+                }
+                reviewHtml += '</div>';
+                // Instead of replacing scoreDiv.innerHTML, append review below score and keep restart button
+                // Find the restart button and keep it
+                let restartBtn = Array.from(scoreDiv.querySelectorAll('button')).find(btn => btn.textContent === 'Restart Quiz');
+                // Remove reviewBtn only
+                reviewBtn.remove();
+                // Insert reviewHtml before restartBtn
+                if (restartBtn) {
+                    restartBtn.insertAdjacentHTML('beforebegin', reviewHtml);
+                } else {
+                    scoreDiv.innerHTML += reviewHtml;
+                }
+            };
             // Add restart button
             const restartBtn = document.createElement('button');
             restartBtn.textContent = 'Restart Quiz';
