@@ -137,8 +137,16 @@
                 options: ["A. y=x-8", "B. y=8x+1", "C. y=-x+8", "D. y=x+8"],
                 answer: "D. y=x+8"
             },
-            { text: "", answer: "" },
-            { text: "", answer: "" }
+            {
+                text: "Is the point (2,-1) on the line y=-2x+3?",
+                options: ["A. Yes", "B. No"],
+                answer: "A. Yes"
+            },
+            {
+                text: "Is the point (0,-4) on the line y=-2x+3?",
+                options: ["A. Yes", "B. No"],
+                answer: "B. No"
+            }
         ];
 
         let current = 0;
@@ -183,6 +191,7 @@
         function updateNav() {
             prevBtn.disabled = current === 0;
             nextBtn.disabled = current === questions.length-1;
+            nextBtn.style.display = current === questions.length-1 ? 'none' : '';
         }
 
         prevBtn.onclick = function() {
